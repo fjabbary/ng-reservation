@@ -1,0 +1,57 @@
+<app-home></app-home>
+
+<div class="card card-body bg-light">
+    <p class="mb-3 text-center lead">Create a new reservation</p>
+    <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+        <div class="row mb-3">
+            <div class="col">
+                <label class="form-label">Check-In Date:</label>
+                <input class="form-control" type="date" formControlName="checkInDate"
+                    [class.is-invalid]="checkInDateField.errors?.['required'] && checkInDateField.touched">
+                <div class="text-danger" *ngIf="checkInDateField.errors?.['required'] && checkInDateField.touched">
+                    <small>Check-in date is required</small>
+                </div>
+            </div>
+            <div class="col">
+                <label class="form-label">Check-Out Date:</label>
+                <input class="form-control" type="date" formControlName="checkOutDate"
+                    [class.is-invalid]="checkOutDateField.errors?.['required'] && checkOutDateField.touched">
+                <div class="text-danger" *ngIf="checkOutDateField.errors?.['required'] && checkOutDateField.touched">
+                    <small>Check-out date is required</small>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label class="form-label">Guest Name:</label>
+            <input class="form-control" type="text" formControlName="guestName"
+                [class.is-invalid]="guestNameField.errors?.['required'] && guestNameField.touched">
+            <div class="text-danger" *ngIf="guestNameField.errors?.['required'] && guestNameField.touched">
+                <small>Guest Name is required</small>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Guest Email:</label>
+            <input class="form-control" type="email" formControlName="guestEmail"
+                [class.is-invalid]="guestEmailField.invalid && guestEmailField.touched">
+            <div class="text-danger" *ngIf="guestEmailField.errors?.['required'] && guestEmailField.touched">
+                <small>Guest email is required</small>
+            </div>
+            <div class="text-danger" *ngIf="guestEmailField.errors?.['email'] && guestEmailField.touched">
+                <small>Guest email is in incorrect format</small>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Room Number:</label>
+            <input class="form-control" type="number" formControlName="roomNumber"
+                [class.is-invalid]="roomNumberField.errors?.['required'] && roomNumberField.touched">
+            <div class="text-danger" *ngIf="roomNumberField.errors?.['required'] && roomNumberField.touched">
+                <small>Guest room number is required</small>
+            </div>
+        </div>
+        <button class="btn btn-primary mt-3" type="submit" [disabled]="reservationForm.invalid"
+            *ngIf="!showEdit">Submit</button>
+    </form>
+    <button class="btn btn-warning" *ngIf="showEdit" (click)="update()">Update</button>
+</div>
